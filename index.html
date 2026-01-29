@@ -16,25 +16,51 @@
 </header>
 
 <main>
+
+  <!-- ADICIONAR -->
   <section class="card">
     <h2>Adicionar lançamento</h2>
+
     <input id="desc" placeholder="Descrição">
     <input id="value" type="number" placeholder="Valor">
+
+    <select id="category">
+      <option>Alimentação</option>
+      <option>Aluguel</option>
+      <option>Lazer</option>
+      <option>Outros</option>
+    </select>
+
+    <input id="date" type="date">
+
     <select id="type">
       <option value="entrada">Entrada</option>
       <option value="saida">Saída</option>
     </select>
+
     <button onclick="addTransaction()">Salvar</button>
   </section>
 
+  <!-- RESUMO -->
   <section class="card">
-    <h2>Saldo Atual</h2>
-    <h3 id="balance">R$ 0,00</h3>
+    <h2>Resumo</h2>
+    <p>Saldo: <strong id="balance">R$ 0,00</strong></p>
+    <p>Entradas: <span id="totalEntrada">R$ 0,00</span></p>
+    <p>Saídas: <span id="totalSaida">R$ 0,00</span></p>
   </section>
 
+  <!-- HISTÓRICO -->
   <section class="card">
     <h2>Histórico</h2>
     <ul id="list"></ul>
+  </section>
+
+  <!-- PREMIUM -->
+  <section class="card premium-only">
+    <h2>⭐ Meta Mensal</h2>
+    <input id="metaValor" type="number" placeholder="Meta mensal">
+    <button onclick="saveMeta()">Salvar Meta</button>
+    <p id="metaStatus"></p>
   </section>
 
   <section class="card premium-only">
@@ -42,11 +68,13 @@
     <canvas id="chart"></canvas>
   </section>
 
+  <!-- ATIVAÇÃO -->
   <section class="card">
     <h2>🔐 Ativar Premium</h2>
     <input id="premiumCode" placeholder="Código premium">
     <button onclick="activatePremium()">Ativar</button>
   </section>
+
 </main>
 
 <script src="js/premium.js"></script>
