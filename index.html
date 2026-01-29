@@ -67,6 +67,11 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js')
 }
 </script>
-
+<script>
+  if (localStorage.getItem("premium") === "true") {
+    document.querySelectorAll(".premium-only")
+      .forEach(el => el.style.display = "block")
+  }
+</script>
 </body>
 </html>
