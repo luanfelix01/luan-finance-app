@@ -2,44 +2,67 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+<title>Premium</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Premium Ativo</title>
-<link rel="stylesheet" href="css/style.css">
+<style>
+body { background:#0b0b0b;color:#fff;font-family:Arial;padding:20px }
+.card { background:#161616;padding:15px;border-radius:10px;margin-bottom:15px }
+button { padding:12px;width:100%;border:none;border-radius:8px;font-weight:bold }
+.gold { background:gold;color:#000 }
+</style>
 </head>
 
 <body>
 
-<header class="premium-header">
-  <h1>💎 Premium Ativo</h1>
-  <p>Você desbloqueou o melhor do Luan Finance</p>
-</header>
+<script>
+if (localStorage.getItem("premium") !== "true") {
+  window.location.href = "premium.html";
+}
+</script>
 
-<main>
+<h1>💎 Premium Ativo</h1>
 
-<section class="card premium-box">
-  <h2>Benefícios liberados</h2>
-  <ul>
-    <li>✅ Relatórios avançados</li>
-    <li>✅ Planejamento mensal</li>
-    <li>✅ Exportação de dados</li>
-    <li>✅ Área exclusiva Premium</li>
-    <li>✅ Atualizações futuras</li>
-  </ul>
-</section>
+<div class="card">
+  <h3>📊 Relatórios Avançados</h3>
+  <button class="gold" onclick="location.href='relatorios.html'">Ver Relatórios</button>
+</div>
 
-<section class="card">
-  <button onclick="location.href='index.html'">
-    VOLTAR PARA O APP
-  </button>
-</section>
+<div class="card">
+  <h3>🎯 Meta Mensal</h3>
+  <input id="meta" placeholder="Ex: 2000">
+  <button onclick="salvarMeta()">Salvar Meta</button>
+</div>
 
-</main>
+<div class="card">
+  <h3>👁️ Modo Oculto</h3>
+  <button onclick="toggleValores()">Ativar / Desativar</button>
+</div>
+
+<div class="card">
+  <h3>📁 Backup</h3>
+  <button onclick="backup()">Salvar Backup</button>
+</div>
 
 <script>
-  // Segurança: só entra se for premium
-  if (localStorage.getItem("premium") !== "true") {
-    window.location.href = "premium.html"
-  }
+function salvarMeta(){
+  localStorage.setItem("meta", document.getElementById("meta").value)
+  alert("Meta salva")
+}
+
+function toggleValores(){
+  const estado = localStorage.getItem("oculto")
+  localStorage.setItem("oculto", estado === "true" ? "false" : "true")
+  alert("Modo alterado")
+}
+
+function backup(){
+  const data = JSON.stringify(localStorage)
+  const blob = new Blob([data], {type:"application/json"})
+  const a = document.createElement("a")
+  a.href = URL.createObjectURL(blob)
+  a.download = "backup-finance.json"
+  a.click()
+}
 </script>
 
 </body>
