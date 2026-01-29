@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatórios</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+<header>
+  <h1>Relatórios Financeiros</h1>
+  <a href="index.html" style="color:#00ff88">⬅ Voltar</a>
+</header>
+
+<main>
+  <section class="card">
+    <h2>Resumo Geral</h2>
+    <canvas id="chart"></canvas>
+  </section>
+</main>
+
+<script>
+const ctx = document.getElementById('chart')
+
+new Chart(ctx, {
+  type: 'doughnut',
+  data: {
+    labels: ['Entradas', 'Saídas'],
+    datasets: [{
+      data: [
+        Number(localStorage.getItem('income') || 0),
+        Number(localStorage.getItem('expense') || 0)
+      ],
+      backgroundColor: ['#00ff88','#ff4d4d']
+    }]
+  }
+})
+</script>
+</body>
+</html>
