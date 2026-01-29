@@ -8,18 +8,33 @@
 </head>
 
 <body>
-<script src="js/premium.js"></script>
+
 <header>
   <h1>💎 Ativar Premium</h1>
 </header>
 
 <main>
   <section class="card">
-    <input id="premiumCode" placeholder="Código Premium">
-    <button onclick="activatePremium()">Ativar</button>
+    <input id="premiumCode" placeholder="Digite o código Premium">
+    <button id="btnAtivar">Ativar Premium</button>
   </section>
 </main>
 
-<script src="js/premium.js"></script>
+<script>
+  const PREMIUM_CODE = "LUAN-PREMIUM"
+
+  document.getElementById("btnAtivar").addEventListener("click", () => {
+    const input = document.getElementById("premiumCode").value.trim().toUpperCase()
+
+    if (input === PREMIUM_CODE) {
+      localStorage.setItem("premium", "true")
+      alert("💎 Premium ativado com sucesso!")
+      window.location.href = "index.html"
+    } else {
+      alert("❌ Código inválido")
+    }
+  })
+</script>
+
 </body>
 </html>
