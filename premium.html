@@ -1,38 +1,62 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ativar Premium</title>
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <title>Ativar Premium</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background: #0d0d0d;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+    }
+    input, button {
+      width: 100%;
+      max-width: 300px;
+      padding: 12px;
+      margin: 10px auto;
+      border-radius: 6px;
+      border: none;
+      font-size: 16px;
+    }
+    button {
+      background: gold;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 <body>
 
-<header>
   <h1>💎 Ativar Premium</h1>
-</header>
+  <p>Digite seu código de ativação</p>
 
-<main>
-  <section class="card">
-    <input id="premiumCode" type="text" placeholder="Digite o código Premium">
-<button onclick="activatePremium()">Ativar Premium</button>
+  <input id="premiumCode" placeholder="Ex: LUAN-PREMIUM">
+  <button id="btnAtivar">Ativar Premium</button>
 
-<script src="js/premium.js"></script>
-  const PREMIUM_CODE = "LUAN-PREMIUM"
+  <!-- SCRIPT CORRETO -->
+  <script>
+    const PREMIUM_CODE = "LUAN-PREMIUM";
 
-  document.getElementById("btnAtivar").addEventListener("click", () => {
-    const input = document.getElementById("premiumCode").value.trim().toUpperCase()
+    document.getElementById("btnAtivar").addEventListener("click", function () {
+      const input = document
+        .getElementById("premiumCode")
+        .value
+        .trim()
+        .toUpperCase();
 
-    if (input === PREMIUM_CODE) {
-      localStorage.setItem("premium", "true")
-      alert("💎 Premium ativado com sucesso!")
-      window.location.href = "premium-ativo.html"
-    } else {
-      alert("❌ Código inválido")
-    }
-  })
-</script>
+      if (input === PREMIUM_CODE) {
+        localStorage.setItem("premium", "true");
+        alert("💎 Premium ativado com sucesso!");
+        window.location.href = "premium-ativo.html";
+      } else {
+        alert("❌ Código inválido");
+      }
+    });
+  </script>
 
 </body>
 </html>
