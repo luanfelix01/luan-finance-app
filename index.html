@@ -1,93 +1,71 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Luan Finance</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="css/style.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luan Finance</title>
+
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
 
 <header>
-  <h1>💸 Luan Finance</h1>
+  <h1>💰 Luan Finance</h1>
   <span id="premiumStatus"></span>
 </header>
 
-<main> <section class="card">
+<main>
+
+<section class="card">
+  <h2>Adicionar lançamento</h2>
+  <input id="desc" placeholder="Descrição">
+  <input id="value" type="number" placeholder="Valor">
+  <select id="type">
+    <option value="entrada">Entrada</option>
+    <option value="saida">Saída</option>
+  </select>
+  <button onclick="addTransaction()">Salvar</button>
+</section>
+
+<section class="card">
+  <h2>Saldo Atual</h2>
+  <h3 id="balance">R$ 0,00</h3>
+</section>
+
+<section class="card">
+  <h2>Histórico</h2>
+  <ul id="list"></ul>
+</section>
+
+<section class="card premium-only">
+  <h2>📅 Planejamento Mensal</h2>
+  <input id="monthlyGoal" type="number" placeholder="Meta mensal">
+  <button onclick="saveGoal()">Salvar Meta</button>
+  <p id="goalInfo"></p>
+</section>
+
+<section class="card premium-only">
+  <h2>📥 Exportar Dados</h2>
+  <button onclick="exportData()">Exportar CSV</button>
+</section>
+
+<section class="card">
   <button onclick="location.href='reports.html'">📊 Relatórios</button>
   <button onclick="location.href='premium.html'">💎 Premium</button>
 </section>
-
-  <!-- ADICIONAR -->
-  <section class="card">
-    <h2>Adicionar lançamento</h2>
-
-    <input id="desc" placeholder="Descrição">
-    <input id="value" type="number" placeholder="Valor">
-
-    <select id="category">
-      <option>Alimentação</option>
-      <option>Aluguel</option>
-      <option>Lazer</option>
-      <option>Outros</option>
-    </select>
-
-    <input id="date" type="date">
-
-    <select id="type">
-      <option value="entrada">Entrada</option>
-      <option value="saida">Saída</option>
-    </select>
-
-    <button onclick="addTransaction()">Salvar</button>
-  </section>
-
-  <!-- RESUMO -->
-  <section class="card">
-    <h2>Resumo</h2>
-    <p>Saldo: <strong id="balance">R$ 0,00</strong></p>
-    <p>Entradas: <span id="totalEntrada">R$ 0,00</span></p>
-    <p>Saídas: <span id="totalSaida">R$ 0,00</span></p>
-  </section>
-
-  <!-- HISTÓRICO -->
-  <section class="card">
-    <h2>Histórico</h2>
-    <ul id="list"></ul>
-  </section>
-
-  <!-- PREMIUM -->
-  <section class="card premium-only">
-    <h2>⭐ Meta Mensal</h2>
-    <input id="metaValor" type="number" placeholder="Meta mensal">
-    <button onclick="saveMeta()">Salvar Meta</button>
-    <p id="metaStatus"></p>
-  </section>
-
-  <section class="card premium-only">
-    <h2>📊 Relatórios Premium</h2>
-    <canvas id="chart"></canvas>
-  </section>
-
-  <!-- ATIVAÇÃO -->
-  <section class="card">
-    <h2>🔐 Ativar Premium</h2>
-    <input id="premiumCode" placeholder="Código premium">
-    <button onclick="activatePremium()">Ativar</button>
-  </section>
 
 </main>
 
 <script src="js/premium.js"></script>
 <script src="js/app.js"></script>
-<script src="js/charts.js"></script>
 
 <script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js');
-  }
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js')
+}
 </script>
 
 </body>
