@@ -1,47 +1,76 @@
 * {
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
 }
 
 body {
-  background:#0b0f14;
-  color:#fff;
-  text-align:center;
+  background: #0b0f14;
+  color: #ffffff;
+  line-height: 1.6;
 }
 
 .hero {
-  padding:80px 20px;
-  background:linear-gradient(135deg,#00ff88,#00ccff);
-  color:#000;
+  padding: 90px 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #00ff88, #00c9ff);
+  color: #081018;
+}
+
+.hero h1 {
+  font-size: 42px;
+  margin-bottom: 15px;
+}
+
+.hero p {
+  font-size: 18px;
+  opacity: 0.9;
 }
 
 .btn {
-  display:inline-block;
-  margin-top:20px;
-  padding:15px 30px;
-  background:#00ff88;
-  color:#000;
-  text-decoration:none;
-  font-weight:bold;
-  border-radius:30px;
+  display: inline-block;
+  margin-top: 30px;
+  padding: 16px 36px;
+  background: #081018;
+  color: #00ff88;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 40px;
+  transition: 0.3s;
 }
 
-.benefits, .cta, .price {
-  padding:50px 20px;
+.btn:hover {
+  transform: scale(1.05);
+}
+
+section {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+section h2 {
+  font-size: 30px;
+  margin-bottom: 25px;
 }
 
 ul {
-  list-style:none;
+  list-style: none;
+  max-width: 500px;
+  margin: auto;
 }
 
 ul li {
-  margin:10px 0;
+  background: #121820;
+  padding: 14px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  font-size: 16px;
 }
 
 footer {
-  padding:20px;
-  font-size:12px;
-  color:#aaa;
+  text-align: center;
+  padding: 30px;
+  font-size: 13px;
+  color: #aaa;
 }
