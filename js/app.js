@@ -1,88 +1,63 @@
-let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
-let meta = Number(localStorage.getItem("meta")) || 0;
+let transactions = JSON.parse(localStorage.getItem("transactions") || "[]")
 
 function addTransaction() {
-  const desc = descEl.value;
-  const value = Number(valueEl.value);
-  const type = typeEl.value;
-  const category = categoryEl.value;
-  const date = dateEl.value;
+  const desc = document.getElementById("desc").value
+  const value = Number(document.getElementById("value").value)
+  const type = document.getElementById("type").value
 
-  if (!desc || !value || !date) {
-    alert("Preencha todos os campos");
-    return;
-  }
+  if (!desc || !value) return alert("Preencha tudo")
 
-  transactions.push({ desc, value, type, category, date });
-  localStorage.setItem("transactions", JSON.stringify(transactions));
+  transactions.push({ desc, value, type })
+  localStorage.setItem("transactions", JSON.stringify(transactions))
 
-  descEl.value = "";
-  valueEl.value = "";
-
-  render();
+  update()
 }
 
-const descEl = document.getElementById("desc");
-const valueEl = document.getElementById("value");
-const typeEl = document.getElementById("type");
-const categoryEl = document.getElementById("category");
-const dateEl = document.getElementById("date");
+function update() {
+  const list = document.getElementById("list")
+  const balanceEl = document.getElementById("balance")
+  list.innerHTML = ""
 
-function render() {
-  const list = document.getElementById("list");
-  const balanceEl = document.getElementById("balance");
-  const entradaEl = document.getElementById("totalEntrada");
-  const saidaEl = document.getElementById("totalSaida");
+  let balance = 0
+  let income = 0
+  let expense = 0
 
-  list.innerHTML = "";
-
-  let balance = 0, entrada = 0, saida = 0;
-
-  transactions.forEach((t, i) => {
-    const li = document.createElement("li");
-    li.innerHTML = `
-      ${t.desc} (${t.category})
-      <strong>${t.type === "entrada" ? "+" : "-"}R$ ${t.value.toFixed(2)}</strong>
-      <button onclick="remove(${i})">🗑️</button>
-    `;
-    list.appendChild(li);
+  transactions.forEach(t => {
+    const li = document.createElement("li")
+    li.textContent = `${t.desc} - R$ ${t.value}`
+    list.appendChild(li)
 
     if (t.type === "entrada") {
-      entrada += t.value;
-      balance += t.value;
+      balance += t.value
+      income += t.value
     } else {
-      saida += t.value;
-      balance -= t.value;
+      balance -= t.value
+      expense += t.value
     }
-  });
+  })
 
-  balanceEl.innerText = "R$ " + balance.toFixed(2);
-  entradaEl.innerText = "R$ " + entrada.toFixed(2);
-  saidaEl.innerText = "R$ " + saida.toFixed(2);
+  localStorage.setItem("income", income)
+  localStorage.setItem("expense", expense)
 
-  updateMeta(balance);
+  balanceEl.innerText = "R$ " + balance.toFixed(2)
 }
 
-function remove(index) {
-  transactions.splice(index, 1);
-  localStorage.setItem("transactions", JSON.stringify(transactions));
-  render();
+function saveGoal() {
+  const goal = document.getElementById("monthlyGoal").value
+  localStorage.setItem("monthlyGoal", goal)
+  document.getElementById("goalInfo").innerText = "Meta: R$ " + goal
 }
 
-function saveMeta() {
-  meta = Number(document.getElementById("metaValor").value);
-  localStorage.setItem("meta", meta);
-  render();
+function exportData() {
+  const csv = transactions.map(t =>
+    `${t.desc},${t.value},${t.type}`
+  ).join("\n")
+
+  const blob = new Blob([csv], { type: "text/csv" })
+  const a = document.createElement("a")
+  a.href = URL.createObjectURL(blob)
+  a.download = "luan-finance.csv"
+  a.click()
 }
 
-function updateMeta(balance) {
-  const status = document.getElementById("metaStatus");
-  if (!status) return;
-
-  if (meta > 0) {
-    const percent = Math.min((balance / meta) * 100, 100);
-    status.innerText = `Meta: ${percent.toFixed(0)}% alcançado`;
-  }
-}
-
-render();
+update()
