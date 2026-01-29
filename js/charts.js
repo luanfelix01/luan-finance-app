@@ -1,23 +1,26 @@
 document.addEventListener("DOMContentLoaded", () => {
-  if (!localStorage.getItem("premium")) return;
+  if (localStorage.getItem("premium") !== "true") return;
 
-  const ctx = document.getElementById("chart");
-  if (!ctx) return;
+  const canvas = document.getElementById("chart");
+  if (!canvas) return;
 
   const data = JSON.parse(localStorage.getItem("transactions")) || [];
-  let entrada = 0, saida = 0;
-
+  const months = {};
+  
   data.forEach(t => {
-    t.type === "entrada" ? entrada += t.value : saida += t.value;
+    const m = t.date.slice(0, 7);
+    if (!months[m]) months[m] = 0;
+    months[m] += t.type === "entrada" ? t.value : -t.value;
   });
 
-  new Chart(ctx, {
-    type: "pie",
+  new Chart(canvas, {
+    type: "line",
     data: {
-      labels: ["Entradas", "Saídas"],
+      labels: Object.keys(months),
       datasets: [{
-        data: [entrada, saida],
-        backgroundColor: ["#00ff88", "#ff4444"]
+        label: "Saldo Mensal",
+        data: Object.values(months),
+        borderColor: "#00ff88"
       }]
     }
   });
