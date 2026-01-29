@@ -32,4 +32,19 @@ button {
 
 .premium-only {
   border:2px solid #00ff88;
+} 
+.premium-header {
+  background: linear-gradient(135deg, #ffd700, #ffb300);
+  color: #1a1a1a;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.premium-box {
+  border: 2px solid #ffd700;
+}
+
+.premium-box ul li {
+  background: #1a1a1a;
+  color: #ffd700;
 }
