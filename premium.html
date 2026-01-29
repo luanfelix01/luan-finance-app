@@ -3,46 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Premium</title>
+<title>Ativar Premium</title>
 <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
+
 <header>
-  <h1>Área Premium</h1>
-  <a href="index.html" style="color:#00ff88">⬅ Voltar</a>
+  <h1>💎 Ativar Premium</h1>
 </header>
 
-<main id="premiumContent"></main>
+<main>
+  <section class="card">
+    <input id="premiumCode" placeholder="Código Premium">
+    <button onclick="activatePremium()">Ativar</button>
+  </section>
+</main>
 
-<script>
-const premium = localStorage.getItem('premium')
-const area = document.getElementById('premiumContent')
-
-if (premium !== 'true') {
-  area.innerHTML = `
-    <section class="card">
-      <h2>🔒 Conteúdo Bloqueado</h2>
-      <p>Ative o Premium para acessar:</p>
-      <ul>
-        <li>📊 Relatórios avançados</li>
-        <li>📅 Planejamento mensal</li>
-        <li>📥 Exportar dados</li>
-        <li>☁ Backup automático</li>
-      </ul>
-    </section>
-  `
-} else {
-  area.innerHTML = `
-    <section class="card premium-only">
-      <h2>💎 Premium Ativo</h2>
-      <p>✔ Planejamento financeiro</p>
-      <p>✔ Metas inteligentes</p>
-      <p>✔ Exportar PDF / Excel</p>
-      <p>✔ Backup na nuvem</p>
-    </section>
-  `
-}
-</script>
+<script src="js/premium.js"></script>
 </body>
 </html>
