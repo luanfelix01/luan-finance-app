@@ -9,34 +9,18 @@
 </head>
 
 <body>
+
 <header>
-  <h1>Relatórios Financeiros</h1>
-  <a href="index.html" style="color:#00ff88">⬅ Voltar</a>
+  <h1>📊 Relatórios</h1>
 </header>
 
 <main>
-  <section class="card">
-    <h2>Resumo Geral</h2>
+  <section class="card premium-only">
     <canvas id="chart"></canvas>
   </section>
 </main>
 
-<script>
-const ctx = document.getElementById('chart')
-
-new Chart(ctx, {
-  type: 'doughnut',
-  data: {
-    labels: ['Entradas', 'Saídas'],
-    datasets: [{
-      data: [
-        Number(localStorage.getItem('income') || 0),
-        Number(localStorage.getItem('expense') || 0)
-      ],
-      backgroundColor: ['#00ff88','#ff4d4d']
-    }]
-  }
-})
-</script>
+<script src="js/premium.js"></script>
+<script src="js/charts.js"></script>
 </body>
 </html>
