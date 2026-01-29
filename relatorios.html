@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Relatórios</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body style="background:#000;color:#fff;padding:20px">
+
+<script>
+if (localStorage.getItem("premium") !== "true") {
+  window.location.href = "premium.html";
+}
+</script>
+
+<h2>📊 Relatórios Premium</h2>
+<canvas id="grafico"></canvas>
+
+<script>
+const gastos = JSON.parse(localStorage.getItem("gastos") || "[]")
+
+const total = gastos.reduce((s,g)=>s+g.valor,0)
+
+new Chart(document.getElementById("grafico"), {
+  type:"doughnut",
+  data:{
+    labels:["Gastos"],
+    datasets:[{
+      data:[total],
+      backgroundColor:["gold"]
+    }]
+  }
+})
+</script>
+
+</body>
+</html>
