@@ -1,0 +1,47 @@
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, sans-serif;
+}
+
+body {
+  background:#0b0f14;
+  color:#fff;
+  text-align:center;
+}
+
+.hero {
+  padding:80px 20px;
+  background:linear-gradient(135deg,#00ff88,#00ccff);
+  color:#000;
+}
+
+.btn {
+  display:inline-block;
+  margin-top:20px;
+  padding:15px 30px;
+  background:#00ff88;
+  color:#000;
+  text-decoration:none;
+  font-weight:bold;
+  border-radius:30px;
+}
+
+.benefits, .cta, .price {
+  padding:50px 20px;
+}
+
+ul {
+  list-style:none;
+}
+
+ul li {
+  margin:10px 0;
+}
+
+footer {
+  padding:20px;
+  font-size:12px;
+  color:#aaa;
+}
