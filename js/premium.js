@@ -1,22 +1,28 @@
-const PREMIUM_CODE = "LUAN-2026"
+const PREMIUM_CODE = "LUAN-PREMIUM"
 
-const status = document.getElementById("premiumStatus")
-const premiumActive = localStorage.getItem("premium") === "true"
-
-status.innerText = premiumActive ? "💎 Premium ativo" : "🔓 Gratuito"
-
-document.querySelectorAll(".premium-only").forEach(el => {
-  el.style.display = premiumActive ? "block" : "none"
-})
-
+// Função de ativação
 function activatePremium() {
-  const code = document.getElementById("premiumCode").value
+  const input = document.getElementById("premiumCode").value.trim().toUpperCase()
 
-  if (code === PREMIUM_CODE) {
+  if (input === PREMIUM_CODE) {
     localStorage.setItem("premium", "true")
-    alert("Premium ativado!")
+    alert("💎 Premium ativado com sucesso!")
     location.href = "index.html"
   } else {
-    alert("Código inválido")
+    alert("❌ Código inválido")
   }
 }
+
+// Controle de visualização
+document.addEventListener("DOMContentLoaded", () => {
+  const isPremium = localStorage.getItem("premium") === "true"
+
+  const status = document.getElementById("premiumStatus")
+  if (status) {
+    status.innerText = isPremium ? "💎 Premium ativo" : "🔓 Gratuito"
+  }
+
+  document.querySelectorAll(".premium-only").forEach(el => {
+    el.style.display = isPremium ? "block" : "none"
+  })
+})
