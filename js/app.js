@@ -1,63 +1,118 @@
-let transactions = JSON.parse(localStorage.getItem("transactions") || "[]")
-
-function addTransaction() {
-  const desc = document.getElementById("desc").value
-  const value = Number(document.getElementById("value").value)
-  const type = document.getElementById("type").value
-
-  if (!desc || !value) return alert("Preencha tudo")
-
-  transactions.push({ desc, value, type })
-  localStorage.setItem("transactions", JSON.stringify(transactions))
-
-  update()
+// ===============================
+// UTILIDADES SEGURAS
+// ===============================
+function toNumber(value) {
+  const n = parseFloat(value)
+  return isNaN(n) ? 0 : n
 }
 
-function update() {
-  const list = document.getElementById("list")
-  const balanceEl = document.getElementById("balance")
-  list.innerHTML = ""
+// ===============================
+// STORAGE
+// ===============================
+function getTransacoes() {
+  return JSON.parse(localStorage.getItem("transacoes")) || []
+}
 
-  let balance = 0
-  let income = 0
-  let expense = 0
+function salvarTransacoes(lista) {
+  localStorage.setItem("transacoes", JSON.stringify(lista))
+}
 
-  transactions.forEach(t => {
-    const li = document.createElement("li")
-    li.textContent = `${t.desc} - R$ ${t.value}`
-    list.appendChild(li)
+// ===============================
+// ADICIONAR TRANSAÇÃO
+// ===============================
+function adicionarTransacao(tipo) {
+  const descricao = document.getElementById("descricao").value.trim()
+  const valor = toNumber(document.getElementById("valor").value)
 
-    if (t.type === "entrada") {
-      balance += t.value
-      income += t.value
-    } else {
-      balance -= t.value
-      expense += t.value
-    }
+  if (!descricao || valor <= 0) {
+    alert("Preencha descrição e valor corretamente")
+    return
+  }
+
+  const transacoes = getTransacoes()
+
+  transacoes.push({
+    id: Date.now(),
+    tipo: tipo,
+    descricao: descricao,
+    valor: valor
   })
 
-  localStorage.setItem("income", income)
-  localStorage.setItem("expense", expense)
-
-  balanceEl.innerText = "R$ " + balance.toFixed(2)
+  salvarTransacoes(transacoes)
+  limparFormulario()
+  atualizarTela()
 }
 
-function saveGoal() {
-  const goal = document.getElementById("monthlyGoal").value
-  localStorage.setItem("monthlyGoal", goal)
-  document.getElementById("goalInfo").innerText = "Meta: R$ " + goal
+// ===============================
+// REMOVER TRANSAÇÃO
+// ===============================
+function removerTransacao(id) {
+  let transacoes = getTransacoes()
+  transacoes = transacoes.filter(t => t.id !== id)
+  salvarTransacoes(transacoes)
+  atualizarTela()
 }
 
-function exportData() {
-  const csv = transactions.map(t =>
-    `${t.desc},${t.value},${t.type}`
-  ).join("\n")
-
-  const blob = new Blob([csv], { type: "text/csv" })
-  const a = document.createElement("a")
-  a.href = URL.createObjectURL(blob)
-  a.download = "luan-finance.csv"
-  a.click()
+// ===============================
+// LIMPAR FORM
+// ===============================
+function limparFormulario() {
+  document.getElementById("descricao").value = ""
+  document.getElementById("valor").value = ""
 }
 
-update()
+// ===============================
+// CÁLCULOS (SEM BUG)
+// ===============================
+function calcularEntradas(transacoes) {
+  return transacoes
+    .filter(t => t.tipo === "entrada")
+    .reduce((total, t) => total + toNumber(t.valor), 0)
+}
+
+function calcularSaidas(transacoes) {
+  return transacoes
+    .filter(t => t.tipo === "saida")
+    .reduce((total, t) => total + toNumber(t.valor), 0)
+}
+
+function calcularSaldo(entradas, saidas) {
+  const saldo = toNumber(entradas) - toNumber(saidas)
+  return saldo < 0 ? 0 : saldo
+}
+
+// ===============================
+// RENDERIZAÇÃO
+// ===============================
+function atualizarTela() {
+  const lista = document.getElementById("lista")
+  if (!lista) return
+
+  lista.innerHTML = ""
+
+  const transacoes = getTransacoes()
+
+  transacoes.forEach(t => {
+    const li = document.createElement("li")
+    li.innerHTML = `
+      ${t.descricao} - R$ ${t.valor.toFixed(2)}
+      <button onclick="removerTransacao(${t.id})">✖</button>
+    `
+    lista.appendChild(li)
+  })
+
+  const totalEntradas = calcularEntradas(transacoes)
+  const totalSaidas = calcularSaidas(transacoes)
+  const saldo = calcularSaldo(totalEntradas, totalSaidas)
+
+  document.getElementById("entradas").innerText = `R$ ${totalEntradas.toFixed(2)}`
+  document.getElementById("saidas").innerText = `R$ ${totalSaidas.toFixed(2)}`
+  document.getElementById("saldo").innerText = `R$ ${saldo.toFixed(2)}`
+}
+
+// ===============================
+// INICIALIZAÇÃO
+// ===============================
+document.addEventListener("DOMContentLoaded", () => {
+  atualizarTela()
+})
