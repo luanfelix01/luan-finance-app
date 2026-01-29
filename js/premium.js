@@ -1,32 +1,22 @@
-const premiumCodes = [
-  "LUAN-PREMIUM-2026",
-  "VIP-LUAN-999",
-  "FINANCE-PRO-LUAN"
-];
+const PREMIUM_CODE = "LUAN-2026"
+
+const status = document.getElementById("premiumStatus")
+const premiumActive = localStorage.getItem("premium") === "true"
+
+status.innerText = premiumActive ? "💎 Premium ativo" : "🔓 Gratuito"
+
+document.querySelectorAll(".premium-only").forEach(el => {
+  el.style.display = premiumActive ? "block" : "none"
+})
 
 function activatePremium() {
-  const code = document.getElementById("premiumCode").value.trim();
+  const code = document.getElementById("premiumCode").value
 
-  if (premiumCodes.includes(code)) {
-    localStorage.setItem("premium", "true");
-    alert("🔥 Premium ativado!");
-    location.reload();
+  if (code === PREMIUM_CODE) {
+    localStorage.setItem("premium", "true")
+    alert("Premium ativado!")
+    location.href = "index.html"
   } else {
-    alert("❌ Código inválido");
+    alert("Código inválido")
   }
 }
-
-function isPremium() {
-  return localStorage.getItem("premium") === "true";
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  const status = document.getElementById("premiumStatus");
-
-  if (isPremium()) {
-    status.innerText = "⭐ PREMIUM ATIVO";
-  } else {
-    status.innerText = "Modo Normal";
-    document.querySelectorAll(".premium-only").forEach(e => e.remove());
-  }
-});
