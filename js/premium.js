@@ -1,19 +1,12 @@
-const PREMIUM_CODE = "LUANPREMIUM"
+const PREMIUM_CODE = "LUAN-PREMIUM"
 
-// ===============================
-// ATIVAÇÃO
-// ===============================
-function activatePremium() {
-  const input = document.getElementById("premiumCode").value
-    .trim()
-    .toUpperCase()
-
-  if (input === PREMIUM_CODE) {
-    localStorage.setItem("premium", "true")
-    alert("💎 Premium ativado com sucesso!")
-    window.location.href = "premium-ativo.html"
+document.getElementById("btnAtivar").onclick = () => {
+  const code = document.getElementById("premiumCode").value.trim().toUpperCase()
+  if(code === PREMIUM_CODE){
+    localStorage.setItem("premium","true")
+    location.href = "premium-ativo.html"
   } else {
-    alert("❌ Código inválido")
+    alert("Código inválido")
   }
 }
 
