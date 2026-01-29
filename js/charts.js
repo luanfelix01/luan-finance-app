@@ -1,27 +1,15 @@
-document.addEventListener("DOMContentLoaded", () => {
-  if (localStorage.getItem("premium") !== "true") return;
+const ctx = document.getElementById("chart")
 
-  const canvas = document.getElementById("chart");
-  if (!canvas) return;
-
-  const data = JSON.parse(localStorage.getItem("transactions")) || [];
-  const months = {};
-  
-  data.forEach(t => {
-    const m = t.date.slice(0, 7);
-    if (!months[m]) months[m] = 0;
-    months[m] += t.type === "entrada" ? t.value : -t.value;
-  });
-
-  new Chart(canvas, {
-    type: "line",
-    data: {
-      labels: Object.keys(months),
-      datasets: [{
-        label: "Saldo Mensal",
-        data: Object.values(months),
-        borderColor: "#00ff88"
-      }]
-    }
-  });
-});
+new Chart(ctx, {
+  type: "doughnut",
+  data: {
+    labels: ["Entradas", "Saídas"],
+    datasets: [{
+      data: [
+        localStorage.getItem("income") || 0,
+        localStorage.getItem("expense") || 0
+      ],
+      backgroundColor: ["#00ff88", "#ff4d4d"]
+    }]
+  }
+})
