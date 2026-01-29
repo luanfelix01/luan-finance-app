@@ -15,12 +15,10 @@
 
 <main>
   <section class="card">
-    <input id="premiumCode" placeholder="Digite o código Premium">
-    <button id="btnAtivar">Ativar Premium</button>
-  </section>
-</main>
+    <input id="premiumCode" type="text" placeholder="Digite o código Premium">
+<button onclick="activatePremium()">Ativar Premium</button>
 
-<script>
+<script src="js/premium.js"></script>
   const PREMIUM_CODE = "LUAN-PREMIUM"
 
   document.getElementById("btnAtivar").addEventListener("click", () => {
