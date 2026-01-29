@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Premium Ativo</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header class="premium-header">
+  <h1>💎 Premium Ativo</h1>
+  <p>Você desbloqueou o melhor do Luan Finance</p>
+</header>
+
+<main>
+
+<section class="card premium-box">
+  <h2>Benefícios liberados</h2>
+  <ul>
+    <li>✅ Relatórios avançados</li>
+    <li>✅ Planejamento mensal</li>
+    <li>✅ Exportação de dados</li>
+    <li>✅ Área exclusiva Premium</li>
+    <li>✅ Atualizações futuras</li>
+  </ul>
+</section>
+
+<section class="card">
+  <button onclick="location.href='index.html'">
+    VOLTAR PARA O APP
+  </button>
+</section>
+
+</main>
+
+<script>
+  // Segurança: só entra se for premium
+  if (localStorage.getItem("premium") !== "true") {
+    window.location.href = "premium.html"
+  }
+</script>
+
+</body>
+</html>
